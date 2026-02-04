@@ -2,7 +2,7 @@ import numpy as np
 from scipy import stats
 
 
-Class LinearRegression:
+class LinearRegression:
 
     def __init__(self, confidence_level=0.95, add_intercept=True, drop_first_category=True):
         
@@ -284,7 +284,8 @@ Class LinearRegression:
             "f_test": f_result,
             "confidence_level": self.confidence_level
         }
-        return LinearRegression(data)
+        return data
+   
 
 
 
