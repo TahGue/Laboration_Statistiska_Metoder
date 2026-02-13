@@ -286,7 +286,6 @@ class LinearRegression:
         }
         return RegressionResults(data)
 
-""" den här är optional jag har använt bara för att ha en mer läsbar utskrift i jupyter notebook fått hjälp av llm för det :) """
 class RegressionResults:
     """Helper class to display regression results nicely in notebooks without print()."""
     def __init__(self, data):
@@ -296,28 +295,9 @@ class RegressionResults:
         s = self.data
         m = s['model_stats']
         f = s['f_test']
-        
-        # 1. Determine the "vibe" of the model based on R-squared
-        r2 = m['r_squared']
-        if r2 > 0.9:
-            vibe = "🚀 ORACLE LEVEL (It knows everything!)"
-        elif r2 > 0.7:
-             vibe = "🔥 PRETTY SOLID (Trustworthy-ish)"
-        elif r2 > 0.5:
-             vibe = "🤷 MEH... (Better than guessing)"
-        elif r2 > 0.3:
-             vibe = "🎲 COIN FLIP TERRITORY"
-        else:
-             vibe = "🙈 SENSITIVE EYES ONLY (Look away!)"
 
         lines = []
-        lines.append(r"   / \__")
-        lines.append(r"  (    @\___   Regression Rex says:")
-        lines.append(rf"  /         O  '{vibe}'")
-        lines.append(r" /   (_____/")
-        lines.append(r"/_____/   U")
-        lines.append("")
-        lines.append(f"{' STATS DUMP ':=^78}")
+        lines.append(f"{' REGRESSION RESULTS ':=^78}")
         
         lines.append(f"Observations: {s['n_observations']:<15} R-squared:      {m['r_squared']:.4f}")
         lines.append(f"Features:     {s['n_features']:<15} Adj. R-squared: {m['adjusted_r_squared']:.4f}")
@@ -336,12 +316,10 @@ class RegressionResults:
         
         for i, name in enumerate(names):
             name_str = (name[:25] + '..') if len(name) > 27 else name
-            
-            # Format p-value to be 0.0000 if extremely small
+
             pv = c['p_values'][i]
             if pv < 0.0001:
                 pv_str = "0.0000"
-                # Add a little sparkle for highly significant variables
                 sig_mark = " *"
             elif pv < 0.05:
                 pv_str = f"{pv:.4f}"
@@ -349,8 +327,7 @@ class RegressionResults:
             else:
                 pv_str = f"{pv:.4f}"
                 sig_mark = "  "
-            
-            # Add significance marker to the name for fun
+
             display_name = name_str + sig_mark
                 
             lines.append(
@@ -363,7 +340,7 @@ class RegressionResults:
             )
             
         lines.append("=" * 78)
-        lines.append("(* = significant at p<0.0001, . = significant at p<0.05)")
+        lines.append("* p<0.0001, . p<0.05")
         return "\n".join(lines)
    
 
